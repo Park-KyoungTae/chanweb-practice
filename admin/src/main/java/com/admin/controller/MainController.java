@@ -10,5 +10,20 @@ public class MainController {
 	public String main() {
 		return "main";
 	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@RequestMapping("/register")
+	public String register() {
+		return "register";
+	}
+	
+	@RequestMapping("/forgotpwd")
+	public String forgotpwd() {
+		return "forgot-password";
+	}
 }
 	
