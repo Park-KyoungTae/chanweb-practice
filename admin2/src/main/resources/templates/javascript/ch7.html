@@ -1,0 +1,39 @@
+<style>
+#result{
+	width: 300px;
+	border: 2px solid red; 
+}
+</style>
+
+<script>
+
+function display(data){
+	var txt = '';
+	for(var i in data){
+		txt += '<h4>';
+		txt += data[i].name +' : '+ data[i].age;
+		txt += '</h4>';
+	};
+	document.querySelector('#result').innerHTML = txt;
+};
+
+function getdata(){
+	var data = [
+		{'name':'james1','age': 10},
+		{'name':'james2','age': 20},
+		{'name':'james3','age': 30},
+		{'name':'james4','age': 40},
+		{'name':'james5','age': 50}
+	];
+	display(data);
+};
+
+window.onload = function(){
+	getdata();
+	setInterval(getdata(),5000);
+};
+</script>
+
+
+<h1>JS7</h1>
+<div id="result"></div>

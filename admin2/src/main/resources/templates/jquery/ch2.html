@@ -1,0 +1,43 @@
+<style>
+	#ch2 > div {
+		width:200px;
+		height:200px;
+		background: blue;  
+	}
+	.btn{
+		color:red;
+		background:black;
+	}
+</style>
+<script>
+$(document).ready(function(){
+	$('#h1').hover(function(){
+		$('#ch2 > h1').text('Mouse Entered');
+	},function(){
+		$('#ch2 > h1').text('Mouse Leaved');
+	});
+	
+	$('#ch2 > button').mouseenter(function(){
+		$(this).addClass('btn');
+		$('#ch2 > div').fadeOut();
+	});
+	$('#ch2 > button').mouseleave(function(){
+		$(this).removeClass('btn');
+		$('#ch2 > div').fadeIn();
+	});
+	$('#ch2 > button').click(function(){
+		$('#ch2 > div').remove();
+	});
+});
+</script>
+
+
+<h1 id="h1">ch2</h1>
+<div id="ch2">
+	<button>Click</button>
+	<div></div>
+	<h1>Text</h1>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+<script>
+
+function getdata(id){
+	$.ajax({
+		url:'[[@{/checkid}]]',
+		data:{"cid":id},
+		success:function(data){
+			if(data == 0){
+				$('#id_span').text("사용 불가능");
+			}else{
+				$('#id_span').text("사용 가능");
+			}
+		}
+	});
+};
+
+
+$(document).ready(function(){
+	$('input[name="id"]').keyup(function(){
+		var id = $(this).val();
+		getdata(id);
+	});
+});
+</script>
+
+
+<h1>ch3</h1>
+
+<form id="login_form">
+	ID<input type="text" name="id"><span id="id_span"></span><br>
+	PWD<input type="password" name="pwd"><span id="pwd_span"></span><br>
+	<a href="#">LOGIN</a>
+</form>

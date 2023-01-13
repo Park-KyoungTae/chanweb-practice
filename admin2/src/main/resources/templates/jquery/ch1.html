@@ -1,0 +1,17 @@
+<script>
+$(document).ready(function(){
+	$('#ch1 > a').click(function(){
+		$('#ch1 > h2').css({'color':'red','background':'blue'}); 
+		$('#ch1 > h3').html('<a href="#">Clicked</a>');
+	});
+	
+});
+</script>
+
+<h1>ch1</h1>
+
+<div id="ch1">
+	<a href="#">Click</a>
+	<h2>Header1</h2>
+	<h3>Header3</h3>
+</div>

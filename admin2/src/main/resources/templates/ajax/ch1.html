@@ -1,0 +1,53 @@
+<script>
+
+function display(data){
+	$('#time').text(data);
+};
+
+function getdata(){
+	$.ajax({
+		url:'[[@{/time}]]',
+		success:function(data){
+			display(data);
+		},
+		error:function(){
+			alert('error');
+		}
+	});
+};
+
+function display2(data){
+	$('#cnt').text(data);
+};
+function getdata2(){
+	$.ajax({
+		url:'[[@{/cnt}]]',
+		success:function(data){
+			display2(data);
+		}
+	});
+};
+
+$(document).ready(function(){
+	getdata();
+	setInterval(function(){
+		getdata();
+	},1000);
+	getdata2();
+	setInterval(function(){
+		getdata2();
+	},5000);
+});
+</script>
+
+<h1>CH1</h1>
+<h1>고정</h1>
+<h1 id="time"></h1>
+<h1>회원수:<span id="cnt"></span></h1>
+<h1>고정</h1>
+
+
+
+
+
+

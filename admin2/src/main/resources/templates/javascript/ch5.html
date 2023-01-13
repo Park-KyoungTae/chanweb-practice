@@ -1,0 +1,28 @@
+<script>
+function f1(f){
+	var result = 10 * f();
+	alert(result);
+};
+
+var ff = function(){
+	return 10;
+};
+
+f1(ff);
+
+// ------------------------------
+
+function f2(){
+	return function(){
+		alert('inner function');	
+	};
+};
+
+var ff2 = f2();
+
+ff2();
+
+</script>
+
+
+<h1>JS5</h1>

@@ -1,0 +1,18 @@
+<script>
+window.onload = function(){
+	setInterval(function(){
+		var d = new Date(); 
+		document.querySelector('#time').innerHTML = d.toString();
+	}, 1000);
+	var result = 10/0;
+	//alert(isFinite(result));
+	var str = '1+2+3+4+5';
+	var result = eval(str);
+	alert(result);
+};
+
+</script>
+
+
+<h1>JS5</h1>
+<h1 id="time"></h1>

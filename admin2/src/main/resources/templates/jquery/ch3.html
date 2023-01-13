@@ -1,0 +1,52 @@
+<script>
+$(document).ready(function(){
+	
+	$('#login_form > input[name="id"]').blur(function(){
+		var id = $(this).val();
+		if(id == ''){
+			$('#id_span').text('ID is Mandatory field');
+			$(this).focus();
+		}else{
+			$('#id_span').text('');
+		}
+	});
+	
+	// pwd가 4자리 이상이어야 한다.
+	$('#login_form > input[name="pwd"]').keyup(function(){
+		var pwd = $(this).val();
+		if(pwd == '' || pwd.length < 4){
+			$('#pwd_span').text('PWD is Mandatory field');
+			$(this).focus();
+		}else{
+			$('#pwd_span').text('');
+		}
+	});
+	
+	$('#login_form > a').click(function(){
+		var id = $('#login_form > input[name="id"]').val();
+		var pwd = $('#login_form > input[name="pwd"]').val();
+		if(id == ''){
+			$('#id_span').text('ID is Mandatory field');
+			$('#login_form > input[name="id"]').focus();
+			return;
+		}
+		if(pwd == ''){
+			$('#pwd_span').text('PWD is Mandatory field');
+			$('#login_form > input[name="pwd"]').focus();
+			return;
+		}
+		$('#login_form').attr({'action':'[[@{/loginimpl}]]','method':'post'}); 
+		$('#login_form').submit();
+		
+	});
+});
+</script>
+
+
+<h1>ch3</h1>
+
+<form id="login_form">
+	ID<input type="text" name="id"><span id="id_span"></span><br>
+	PWD<input type="password" name="pwd"><span id="pwd_span"></span><br>
+	<a href="#">LOGIN</a>
+</form>

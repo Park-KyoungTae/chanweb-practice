@@ -1,0 +1,105 @@
+<style>
+#container{
+	width:98%;
+	height:400px;
+	border: 2px solid red; 
+}
+</style>
+<script>
+function displaychart(data){
+	Highcharts.chart('container', {
+	    chart: {
+	        zoomType: 'xy'
+	    },
+	    title: {
+	        text: 'Average Monthly Precipitation and Temperature in Karasjok, 2021',
+	        align: 'left'
+	    },
+	    subtitle: {
+	        text: 'Source: ' +
+	            '<a href="https://www.yr.no/nb/historikk/graf/5-97251/Norge/Troms%20og%20Finnmark/Karasjok/Karasjok?q=2021"' +
+	            'target="_blank">YR</a>'
+	    },
+	    xAxis: [{
+	        categories: data.x,
+	        crosshair: true
+	    }],
+	    yAxis: [{ // Primary yAxis
+	        labels: {
+	            format: '{value}°C',
+	            style: {
+	                color: Highcharts.getOptions().colors[1]
+	            }
+	        },
+	        title: {
+	            text: 'Temperature',
+	            style: {
+	                color: Highcharts.getOptions().colors[1]
+	            }
+	        }
+	    }, { // Secondary yAxis
+	        title: {
+	            text: 'Precipitation',
+	            style: {
+	                color: Highcharts.getOptions().colors[0]
+	            }
+	        },
+	        labels: {
+	            format: '{value} mm',
+	            style: {
+	                color: Highcharts.getOptions().colors[0]
+	            }
+	        },
+	        opposite: true
+	    }],
+	    tooltip: {
+	        shared: true
+	    },
+	    legend: {
+	        align: 'left',
+	        x: 80,
+	        verticalAlign: 'top',
+	        y: 80,
+	        floating: true,
+	        backgroundColor:
+	            Highcharts.defaultOptions.legend.backgroundColor || // theme
+	            'rgba(255,255,255,0.25)'
+	    },
+	    series: [{
+	        name: 'Precipitation',
+	        type: 'column',
+	        yAxis: 1,
+	        data: data.mdata,
+	        tooltip: {
+	            valueSuffix: ' mm'
+	        }
+
+	    }, {
+	        name: 'Temperature',
+	        type: 'spline',
+	        data: data.linedata,
+	        tooltip: {
+	            valueSuffix: '°C'
+	        }
+	    }]
+	});
+};
+
+function getdata(){
+	$.ajax({
+		url:'[[@{/chart2}]]',
+		success:function(data){
+			// [222,333,444,555,....]
+			// {'x':['1','2','3',...],'mdata':[222,333,444,555,....], 'linedata':[23,23,23,23,...]}
+			displaychart(data);
+		}
+	});	
+};
+
+$(document).ready(function(){
+	getdata();
+});
+</script>
+
+<h1>CH3</h1>
+<div id="container"></div>

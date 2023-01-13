@@ -1,0 +1,60 @@
+<style>
+
+</style>
+<script>
+$(document).ready(function(){
+	$('#ubtn').click(function(){
+		var c = confirm('수정 하시겠습니까 ?');
+		if(c == true){
+			$('#register_form').attr({
+				'enctype':'multipart/form-data',
+				'method':'post',
+				'action':'[[@{/item/update}]]'
+			});
+			$('#register_form').submit();
+		};
+	});
+	
+	$('#dbtn').click(function(){
+		var c = confirm('삭제 하시겠습니까 ?');
+		if(c == true){
+			var id = $('input[name="id"]').val();
+			// /item/delete?id=2
+			location.href='[[@{/item/delete(id=${obj.id})}]]';
+		};
+	});
+	
+});
+</script>
+<h1>Item</h1>
+<form id="register_form">
+	ID<input type="number" name="id" readonly="readonly" th:value="${obj.id}"><br>
+	NAME<input type="text" name="name" th:value="${obj.name}"><br>
+	PRICE<input type="number" name="price" th:value="${obj.price}"><br>
+	RDATE<h1 th:text="${#dates.format(obj.rdate, 'yyyy-MM-dd')}"></h1><br>
+	IMG<img th:src="@{/img/}+${obj.imgname}"><br>
+	<input type="hidden" name="imgname" th:value="${obj.imgname}">
+	UPDATE_IMG<input type="file" name="img"><br>
+	<a href="#" id="ubtn">UPDATE</a>
+	<a href="#" id="dbtn">DELETE</a>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

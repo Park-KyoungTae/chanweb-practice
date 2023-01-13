@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+/*  */
+
+/*  Global CSS ------------------------------------------ */
+*{
+	margin:0;
+	padding:0;
+}
+a{
+	text-decoration: none;
+	color:black;
+}
+ul,ol{
+	list-style: none;
+}
+
+/*  Header CSS ------------------------------------------ */
+header{
+	width: 900px;
+	height: 100px;
+	background: red;
+	margin: 0 auto;
+}
+
+header > ul{
+	width:700px;
+	margin:0 auto;
+}
+header > ul > li{
+	float: left;
+	padding: 10px;
+}
+/*  Section CSS ------------------------------------------ */
+section{
+	width: 900px;
+	height: 600px;
+	background: gray;
+	margin: 0 auto;
+}
+section > aside{
+	float:left;
+}
+section > #left_aside{
+	width: 100px;
+	height: 600px;
+	background: green;
+}
+section > #center_aside{
+	width: 798px;
+	height: 598px;
+	background: white; 
+	border: 1px solid blue;
+}
+
+/*  Footer CSS ------------------------------------------ */
+footer{
+	width: 900px;
+	height: 50px;
+	background: black;
+	margin: 0 auto;
+}

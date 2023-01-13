@@ -1,0 +1,42 @@
+<style>
+	#result{
+		width:300px;
+		border: 2px solid blue;
+	} 
+</style>
+<script>
+$(document).ready(function(){
+	var i = 1;
+	$('#append').click(function(){
+		$('#result').append('<h3> Append:'+ i++ +'</h3>');
+	});
+	$('#prepend').click(function(){
+		$('#result').prepend('<h3> Prepend:'+ i++ +'</h3>');
+	});
+	$('#after').click(function(){
+		$('#result').after('<h3> After:'+ i++ +'</h3>');
+	});
+	$('#before').click(function(){
+		$('#result').before('<h3> Before:'+ i++ +'</h3>');
+	});
+	$('#empty').click(function(){
+		$('#result').empty();
+	});
+	$('#remove').click(function(){
+		$('#result').remove();
+	});
+});
+</script>
+
+<h1>CH4</h1>
+
+<div id="ch4">
+	<button id="append">Append</button>
+	<button id="prepend">Prepend</button>
+	<button id="after">After</button>
+	<button id="before">Before</button>
+	<button id="empty">Empty</button>
+	<button id="remove">Remove</button>
+	<div id="result"></div>
+
+</div>

@@ -1,0 +1,87 @@
+<style>
+#map {
+	width: 400px;
+	height: 400px;
+	border: 1px solid red;
+}
+</style>
+
+<script>
+	var map;
+
+	function setMarker(lat, lng) {
+		var markerPosition = new kakao.maps.LatLng(lat, lng);
+		var marker = new kakao.maps.Marker({
+			position : markerPosition
+		});
+		marker.setMap(map);
+
+		var iwContent = '<div style="padding:5px;">Hello World!</div>'
+		                + '<img src="/img/b01.jpg" style="width:90px;">';
+
+		var infowindow = new kakao.maps.InfoWindow({
+			content : iwContent
+		});
+
+		kakao.maps.event.addListener(marker, 'mouseover', function() {
+			infowindow.open(map, marker);
+		});
+
+		kakao.maps.event.addListener(marker, 'mouseout', function() {
+			infowindow.close();
+		});
+		kakao.maps.event.addListener(marker, 'click', function() {
+			location.href='http://www.naver.com';
+		});
+
+
+	};
+
+	function center() {
+		var container = document.getElementById('map');
+		var options = {
+			center : new kakao.maps.LatLng(33.450701, 126.570667),
+			level : 8
+		};
+		map = new kakao.maps.Map(container, options);
+		map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+		setMarker(33.450701, 126.570667);
+
+	};
+
+	function go(lat, lng) {
+		var moveLatLon = new kakao.maps.LatLng(lat, lng);
+		map.panTo(moveLatLon);
+		setMarker(lat, lng);
+	};
+
+	$(document).ready(function() {
+		center();
+		$('#s').click(function() {
+			go(37.5193432, 127.0351842);
+		});
+		$('#b').click(function() {
+			go(35.1347551, 129.1004736);
+		});
+	});
+</script>
+
+<h1>ch1</h1>
+<button id="s">Seoul</button>
+<button id="b">Busan</button>
+<div id="map"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+<style>
+	#result{
+		width:300px;
+		border: 2px solid blue;
+	} 
+</style>
+
+<script>
+function display(data){
+	var content = '';
+	$(data).each(function(idx, item){
+		content += '<h3>';
+		content += item;
+		content += '</h3>';
+	});
+	$('#result').html(content);
+};
+
+function getdata(){
+	var data = [1,2,3,4,5];
+	display(data);
+};
+
+$(document).ready(function(){
+	$('#ch5 > a').click(function(){
+		getdata();
+	});
+});
+</script>
+
+<h1>CH5</h1>
+
+<div id="ch5">
+	<a href="#">Get Data</a>
+	<div id="result"></div>
+</div>

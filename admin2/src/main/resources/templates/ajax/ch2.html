@@ -1,0 +1,37 @@
+<style>
+	#result{
+		width:300px;
+		border: 2px solid blue;
+	} 
+</style>
+<script>
+function display(data){
+	var content = '';
+	$(data).each(function(idx,item){
+		content += '<h2>';
+		content += item.rank+' '+item.title+' '+item.updown;
+		content += '</h2>';
+	});
+	$('#result').html(content);
+};
+
+function getdata(){
+	$.ajax({
+		url:'[[@{/rank}]]',
+		success:function(data){
+			display(data);
+		}
+	});
+};
+
+$(document).ready(function(){
+	$('#btn').click(function(){
+		getdata();
+	});
+});
+</script>
+
+
+<h1>CH2</h1>
+<button id="btn">GET DATA</button>
+<div id="result"></div>

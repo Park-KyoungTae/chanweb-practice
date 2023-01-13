@@ -1,0 +1,18 @@
+<script>
+window.onload = function(){
+	var txt = document.querySelector('#email').innerHTML;
+	//alert(txt);
+	var id = txt.substring(0,txt.indexOf('@'));
+	//alert(id);
+	var domain = txt.substring(txt.indexOf('@')+1,txt.indexOf('.'));
+	//alert(domain);
+	
+	document.querySelector('#rid').innerHTML = id;
+	document.querySelector('#rdomain').innerHTML = domain;
+};
+</script>
+
+<h1>JS3</h1>
+<h2 id="email">jmlee@tonesol.com</h2>
+<h2 id="rid"></h2>
+<h2 id="rdomain"></h2>
