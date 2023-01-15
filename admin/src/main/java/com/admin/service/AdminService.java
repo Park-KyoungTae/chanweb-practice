@@ -39,4 +39,9 @@ public class AdminService implements MyService<Integer, Admin>{
 	public List<Admin> getall() throws Exception {
 		return admmapper.selectall();
 	}
+	
+	//SearchID
+	public Admin search(String id) throws Exception{
+		return admmapper.search(id);
+	}
 }

@@ -19,4 +19,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM admin WHERE admin_index=#{admin_index}
 	</delete>
+	<select id="search" parameterType="String" resultType="Admin">
+		SELECT * FROM admin WHERE admin_id=#{id}
+	</select>
 </mapper>

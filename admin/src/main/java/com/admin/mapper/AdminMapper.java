@@ -9,4 +9,5 @@ import com.admin.frame.MyMapper;
 @Mapper
 @Repository
 public interface AdminMapper extends MyMapper<Integer, Admin>{
+	public Admin search(String id) throws Exception;
 }
