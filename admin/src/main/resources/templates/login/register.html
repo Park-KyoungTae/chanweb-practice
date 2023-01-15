@@ -21,23 +21,81 @@
 
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <style>
 html, body, body>div, .row{
 	height: 100%;
 }
 
 .card-body, .card, .col-xl-10 {
-	height: 90%;
+	height: 93%;
 }
 
- .p-5{
+.p-5{
  	width:100%;
  	height:70%;
-	margin: 2% 0;
+	margin: 1% 0;
 }
 </style>
-</head>
+<script>
+function getdata(id){
+	$.ajax({
+		url:'[[@{/checkid}]]',
+		data:{"id":id},
+		success:function(data){
+			if(data == 1){
+				$('#id_span').text("사용가능! ");
+			}else{
+				$('#id_span').text("이미 존재하는 아이디입니다");
+			}
+		}
+	});
+};
 
+$(document).ready(function(){
+	$('#id').keyup(function(){
+		var id = $(this).val();
+		var idcheck=/^[a-zA-Z0-9]{4,8}$/;
+		if(!idcheck.test(id)){
+			$('#id_span').text("아이디는 4~12자 영문+숫자");
+			return false;
+		}
+		getdata(id);
+	});
+	
+	$('#password').keyup(function(){
+		var pwd =$('#password').val();
+		var pwdcheck=/^[a-zA-Z\\d`~!@#$%^&*()-_=+]{8,15}$/;
+		if(!pwdcheck.test(pwd)){
+			$('#pwd_span').text("비밀번호는 8~15자 영문+숫자+특수문자");
+			return false;
+		}
+		$('#pwd_span').text("사용가능!");
+	});
+	
+	$('#password2').keyup(function(){
+		var pwd =$('#password').val();
+		var pwd2 = $(this).val();
+		if(pwd!=pwd2){
+			$('#pwd2_span').text("비밀번호가 일치하지 않습니다");
+			return false;
+		}
+		$('#pwd2_span').text("비밀번호가 일치합니다");
+	});
+	
+	$('#register_form > a').click(function(){
+		var c = confirm('신청 하시겠습니까 ?');
+		if(c == true){
+			$('#register_form').attr({
+				'method':'post',
+				'action':'[[@{/registeradm}]]'
+			});
+			$('#register_form').submit();
+		};
+	});
+});
+</script>
+</head>
 <body class="bg-gradient-secondary">
 
 	<div class="container align-items-center">
@@ -56,28 +114,35 @@ html, body, body>div, .row{
                             <div class="text-center">
                                 <h1 class="h2 text-gray-900 mb-4">관리자 계정 신청</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" id="register_form">
  								<div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleInputid"
+ 									<input type="hidden" name="admin_index" value="0">
+                                    <input type="text" name="admin_id" class="form-control form-control-user" id="id"
                                         placeholder="아이디">
+                                        <div id="id_span"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" id="exampleInputpassword"
+                                    <input type="password" name="admin_pwd" class="form-control form-control-user" id="password"
                                         placeholder="비밀번호">
+                                        <div id="pwd_span"></div>
                                 </div>
                                <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" id="exampleInputpassword2"
+                                    <input type="password" class="form-control form-control-user" id="password2"
                                         placeholder="비밀번호 확인">
+                                        <div id="pwd2_span"></div>
                                 </div>
+                                
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleInputname"
+                                    <input type="text" name="admin_name" class="form-control form-control-user" id="name"
                                         placeholder="이름">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleInputposition"
+                                    <input type="text" name="admin_class" class="form-control form-control-user" id="position"
                                         placeholder="직급">
-                                </div>                            
-                                <a th:href="@{login}" class="btn btn-primary btn-user btn-block">
+                                </div>      
+                                <input type="hidden" name="admin_status" value="N">
+                                
+                                <a href="#" class="btn btn-primary btn-user btn-block">
                                     계정 신청
                                 </a>
                                

@@ -18,8 +18,9 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public String main(HttpSession session) {
+		String status =null;
 		try {
-			String status = (String) session.getAttribute("login_status");
+			status = (String) session.getAttribute("login_status");
 			if(status!="Y" || status==null){
 				return "redirect:/login";
 			}
@@ -34,6 +35,14 @@ public class MainController {
 		return "login/login";
 	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		if(session != null) {
+			session.invalidate();
+		}
+		return "redirect:/login";
+	}
+	
 	@RequestMapping("/loginadmin")
 	public String loginiadmin(HttpSession session, String id, String pwd, Model model) {
 		Admin adm = null;
@@ -45,7 +54,7 @@ public class MainController {
 						return "login/loginadmfail";
 					}	
 					session.setAttribute("loginadm", adm);
-					session.setAttribute("login_status", 'Y');
+					session.setAttribute("login_status", "Y");
 
 					return "redirect:/main";
 				}
@@ -59,6 +68,17 @@ public class MainController {
 	@RequestMapping("/register")
 	public String register() {
 		return "login/register";
+	}
+	
+	@RequestMapping("/registeradm")
+	public String registeradm(Admin adm) {
+		try {
+			admservice.register(adm);
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return "login/registerfail";
+		}
+		return "login/registerok";
 	}
 	
 	@RequestMapping("/forgotpwd")
