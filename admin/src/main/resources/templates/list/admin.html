@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- Begin Page Content -->
+<head>
+<script>
+$(document).ready(function(){
+	$('#selectall').click(function(){
+		$("input[name='checkbox']").attr("checked", true);
+	});
+	
+	$('#cancelall').click(function(){
+		$("input[name='checkbox']").attr("checked", false);
+	});
+});
+	
+</script>
+</head>
+	<div class="card shadow mb-3" style="width:80%;">
+		<div class="card-header py-3">
+			<h4 class="m-1 font-weight-bold text-dark d-inline">관리자 계정</h4>
+		<div class="search_box float-right">
+		    <form id="searchForm" onsubmit="return false;">
+		        <div class="sch_group fl">
+		            <select id="searchType" name="searchType" title="검색 유형 선택">
+		                <option value="id">아이디</option>
+		                <option value="name">이름</option>
+		                <option value="class">직책</option>
+		                <option value="status">승인상태</option>
+		            </select>
+		            <input type="text" id="keyword" name="keyword" placeholder="키워드를 선택하세요." title="키워드 입력" />
+		            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+		        </div>
+		    </form>
+		</div>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th></th>
+							<th>고유번호</th>
+							<th>아이디</th>
+							<th>비밀번호</th>
+							<th>이름</th>
+							<th>직책</th>
+							<th>승인상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="admin:${admin}">
+							<th><input type="checkbox" name="checkbox">
+								<input type="hidden" name="checkbox" value="">
+							</th>
+							<th th:text="${admin.admin_index}"></th>
+							<th th:text="${admin.admin_id}"></th>
+							<th th:text="${admin.admin_pwd}"></th>
+							<th th:text="${admin.admin_name}"></th>
+							<th th:text="${admin.admin_class}"></th>
+							<th th:text="${admin.admin_status}"></th>
+						</tr>
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</div>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center">
+			  <th:block th:if="${pageMaker.prev}">
+			    <li class="page-item previous"><a class="page-link" th:href="@{/list/admin(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount})}">이전</a></li>
+			   </th:block>	
+			   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+			    	<li class="page-item"><a class="page-link num" th:href="@{/list/admin(pageNum=${num},amount=${pageMaker.cri.amount})}" th:text="${num}"></a></li>
+			 	</th:block>
+				<th:block th:if="${pageMaker.next}">
+				    <li class="page-item next"><a class="page-link" th:href="@{/list/admin(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount})}">다음</a></li>
+				</th:block>
+			  </ul>
+			</nav>
+			
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<button type="button" id="selectall" class="btn btn-secondary btn-sm mr-3">전체선택</button>
+				<button type="button" id="cancelall" class="btn btn-secondary btn-sm mr-3">전체해제</button>
+			</div>
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
+				<button type="button" id="waitaccount" class="btn btn-primary btn-sm float-right mr-3">승인대기 계정목록</button>
+				<button type="button" id="approval" class="btn btn-success btn-sm float-right mr-3">승인</button>
+				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
+			</div>
+		</div>
+	</div>
+    </html>

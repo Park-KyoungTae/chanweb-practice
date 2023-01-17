@@ -22,4 +22,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="search" parameterType="String" resultType="Admin">
 		SELECT * FROM admin WHERE admin_id=#{id}
 	</select>
+	<select id="getTotal" resultType="Integer">
+		SELECT COUNT(*) FROM admin;
+	</select>
+	<select id="getListByPaging" parameterType="Criteria" resultType="Admin">
+		SELECT * FROM admin ORDER BY admin_index DESC LIMIT #{pageStartNum},#{amount}	
+	</select>
 </mapper>

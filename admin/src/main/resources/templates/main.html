@@ -13,7 +13,7 @@
 <title>찬찬찬-관리자페이지</title>
 
 <!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+<link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -46,11 +46,31 @@
 			<!-- Sidebar - Brand -->
 			<!-- Divider -->
 			<hr class="sidebar-divider">
-			<a class="btn btn-outline-white font-weight-bold text-light" th:href="@{/main}">찬찬찬 관리자</a>
+			<a class="btn btn-outline-white font-weight-bold text-warning" th:href="@{/main}">찬찬찬 관리자</a>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+	
+			<!-- Heading -->
+			<div class="sidebar-heading" style="font-size: 1em;">관리자</div>
 
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseAdmin"
+				aria-expanded="true" aria-controls="collapseAdmin"> 
+				<i class="fas fa-fw fa-cog"></i><span>관리자 기능</span>
+			</a>
+				<div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/list/admin}">관리자 조회/승인/삭제</a> 						
+						<a class="collapse-item" href="#">상단배너등록</a> 
+						<a class="collapse-item" th:href="@{/item/get}">홈페이지광고등록</a>
+					</div>
+				</div></li>
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+			
 			<!-- Heading -->
 			<div class="sidebar-heading" style="font-size: 1em;">회원관리</div>
 
@@ -63,8 +83,9 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/cust/get}">회원정보관리</a> 						
-						<a class="collapse-item" href="buttons.html">등급관리</a>
+						<a class="collapse-item" th:href="@{/member/list}">회원정보 조회</a> 						
+						<a class="collapse-item" th:href="@{/member/list}">탈퇴회원 처리</a> 						
+						<a class="collapse-item" href="#">회원등급 관리</a>
 					</div>
 				</div></li>
 			<!-- Divider -->
@@ -80,32 +101,13 @@
 				<div id="collapseUtilities" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="utilities-color.html">카테고리등록</a> 
+						<a class="collapse-item" href="#">카테고리등록</a> 
 						<a class="collapse-item" th:href="@{/item/get}">상품등록</a>
 						<a class="collapse-item" th:href="@{/item/get}">상품정보변경/할인</a>
 						<a class="collapse-item" th:href="@{/item/get}">거래처관리</a>
 					</div>
 				</div></li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-			<!-- Heading -->
-			<div class="sidebar-heading" style="font-size: 1em;">홈페이지</div>
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseHomepage"
-				aria-expanded="true" aria-controls="collapseUtilities"> 
-				<i class="fas fa-fw fa-cog"></i> <span>홈페이지관리</span>
-			</a>
-				<div id="collapseHomepage" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="utilities-color.html">상단배너등록</a> <a
-							class="collapse-item" th:href="@{/item/get}">홈페이지광고등록</a>
-					</div>
-				</div></li>
-				
-				
+			
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 			<!-- Heading -->
@@ -113,14 +115,14 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseCoupon"
-				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-cog"></i> <span>쿠폰/이벤트</span>
+				aria-expanded="true" aria-controls="collapseUtilities"> 
+				<i class="fas fa-fw fa-cog"></i> <span>쿠폰/이벤트</span>
 			</a>
 				<div id="collapseCoupon" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="utilities-color.html">쿠폰등록</a> <a
-							class="collapse-item" th:href="@{/item/get}">이벤트등록</a>
+						<a class="collapse-item" href="#">쿠폰등록</a> 
+						<a class="collapse-item" th:href="@{/item/get}">이벤트등록</a>
 					</div>
 				</div></li>
 
@@ -138,7 +140,7 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="utilities-color.html">주문조회</a> <a
-							class="collapse-item" href="utilities-color.html">배송상태변경</a> <a
+							class="collapse-item" href="#">배송상태변경</a> <a
 							class="collapse-item" th:href="@{/item/get}">배송가능지역/배송비설정</a> <a
 							class="collapse-item" th:href="@{/item/get}">반송/환불</a> <a
 							class="collapse-item" th:href="@{/item/get}">배송사관리</a> 
@@ -158,9 +160,9 @@
 				<div id="collapsePost" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="utilities-color.html">공지사항등록</a> <a
-							class="collapse-item" href="utilities-color.html">많이묻는질문(Q&A)</a>
-						<a class="collapse-item" href="utilities-color.html">1대1 문의</a> <a
+						<a class="collapse-item" href="#">공지사항등록</a> <a
+							class="collapse-item" href="#">많이묻는질문(Q&A)</a>
+						<a class="collapse-item" href="#">1대1 문의</a> <a
 							class="collapse-item" th:href="@{/item/get}">리뷰관리</a>
 					</div>
 				</div></li>
@@ -179,9 +181,9 @@
 				<div id="collapseOne" class="collapse" aria-labelledby="headingOne"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/cust/get}">매출정보</a> <a
-							class="collapse-item" href="buttons.html">상품정보</a> <a
-							class="collapse-item" href="buttons.html">사이트정보</a>
+						<a class="collapse-item" th:href="@{/cust/get}">매출정보</a> 
+						<a class="collapse-item" href="#">상품정보</a> 
+						<a class="collapse-item" href="#">사이트정보</a>
 					</div>
 				</div></li>
 
@@ -197,7 +199,7 @@
 			 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <!-- Topbar Navbar -->
-                    <div class="h4 mt-2 ml-4 text-gray-800">찬찬찬-관리자페이지</div>
+                    <div class="h4 mt-2 ml-4 font-weight-bold text-gray-900">찬찬찬-관리자페이지</div>
                     <ul class="navbar-nav ml-auto">
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -206,7 +208,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-900" th:text="${session.loginadm.admin_name}"></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-900 font-weight-bold" th:text="${session.loginadm.admin_name}"></span>
                                 <span class="mr-4 d-none d-lg-inline text-gray-900" th:text="${session.loginadm.admin_class} + ' 님 환영합니다' "></span>                                  
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 								  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -237,8 +239,7 @@
                 <!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
-				<div class="container-fluid"
-					th:include="${center} ? ${center} : center"></div>
+				<div class="container-fluid" th:include="${center} ? ${center} : center"></div>
 				<!-- /.container-fluid -->
 
 			</div>

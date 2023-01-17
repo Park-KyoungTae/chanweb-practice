@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.dto.Admin;
+import com.admin.dto.Criteria;
 import com.admin.frame.MyService;
 import com.admin.mapper.AdminMapper;
 
@@ -43,5 +44,14 @@ public class AdminService implements MyService<Integer, Admin>{
 	//SearchID
 	public Admin search(String id) throws Exception{
 		return admmapper.search(id);
+	}
+	
+	public List<Admin> getListByPaging(Criteria cri) throws Exception{
+		return admmapper.getListByPaging(cri);
+	};
+	
+	//count
+	public int getTotal() throws Exception{
+		return admmapper.getTotal();
 	}
 }
