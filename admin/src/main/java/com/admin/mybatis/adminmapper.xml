@@ -16,6 +16,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE admin SET admin_id=#{admin_id},admin_pwd=#{admin_pwd},admin_name=#{admin_name},admin_class=#{admin_class},admin_status='Y' 
 		WHERE admin_index=#{admin_index}
 	</update>
+	<update id="changeStatus" parameterType="Integer">
+		UPDATE admin SET admin_status='Y'
+		WHERE admin_index=#{admin_index}
+	</update>
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM admin WHERE admin_index=#{admin_index}
 	</delete>

@@ -46,12 +46,18 @@ public class AdminService implements MyService<Integer, Admin>{
 		return admmapper.search(id);
 	}
 	
+	//Paging
 	public List<Admin> getListByPaging(Criteria cri) throws Exception{
 		return admmapper.getListByPaging(cri);
 	};
 	
-	//count
+	//COUNT
 	public int getTotal() throws Exception{
 		return admmapper.getTotal();
+	}
+	
+	//changeStatus
+	public void changeStatus(int apr) throws Exception{
+		admmapper.changeStatus(apr);
 	}
 }

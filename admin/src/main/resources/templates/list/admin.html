@@ -2,7 +2,36 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <!-- Begin Page Content -->
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+function checked_delete(del){
+	$.ajax({
+		url:'[[@{/admin/delete}]]',
+		data:{"del":del},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터 삭제실패');
+			return false;
+		}
+	});
+};
+
+function checked_approval(apr){
+	$.ajax({
+		url:'[[@{/admin/approval}]]',
+		data:{"apr":apr},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert('승인프로세스 실패');
+			return false;
+		}
+	});
+};
+
 $(document).ready(function(){
 	$('#selectall').click(function(){
 		$("input[name='checkbox']").attr("checked", true);
@@ -11,7 +40,34 @@ $(document).ready(function(){
 	$('#cancelall').click(function(){
 		$("input[name='checkbox']").attr("checked", false);
 	});
+	
+	$('#delete').click(function(){
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+		$("input[name='checkbox']:checked").each(function(){
+			var chk =$(this).closest("th").next().text();
+	  	    checked_delete(del);	
+		});
+			alert('삭제완료!');
+		}else{ 
+			alert('취소!');
+		}
+	});
+	
+	$('#approval').click(function(){
+		var result = confirm("사이트 관리자로 승인하시겠습니까?");
+		if(result){
+		$("input[name='checkbox']:checked").each(function(){
+			var chk =$(this).closest("th").next().text();
+	  	    checked_approval(chk);	
+		});
+			alert('승인완료!');
+		}else{ 
+			alert('취소!');
+		}
+	});
 });
+
 	
 </script>
 </head>
@@ -49,9 +105,7 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 						<tr th:each="admin:${admin}">
-							<th><input type="checkbox" name="checkbox">
-								<input type="hidden" name="checkbox" value="">
-							</th>
+							<th><input type="checkbox" name="checkbox"></th>
 							<th th:text="${admin.admin_index}"></th>
 							<th th:text="${admin.admin_id}"></th>
 							<th th:text="${admin.admin_pwd}"></th>
@@ -67,13 +121,13 @@ $(document).ready(function(){
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">
 			  <th:block th:if="${pageMaker.prev}">
-			    <li class="page-item previous"><a class="page-link" th:href="@{/list/admin(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount})}">이전</a></li>
+			    <li class="page-item previous"><a class="page-link" th:href="@{/admin/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount})}">이전</a></li>
 			   </th:block>	
 			   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
-			    	<li class="page-item"><a class="page-link num" th:href="@{/list/admin(pageNum=${num},amount=${pageMaker.cri.amount})}" th:text="${num}"></a></li>
+			    	<li class="page-item"><a class="page-link num" th:href="@{/admin/list(pageNum=${num},amount=${pageMaker.cri.amount})}" th:text="${num}"></a></li>
 			 	</th:block>
 				<th:block th:if="${pageMaker.next}">
-				    <li class="page-item next"><a class="page-link" th:href="@{/list/admin(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount})}">다음</a></li>
+				    <li class="page-item next"><a class="page-link" th:href="@{/admin/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount})}">다음</a></li>
 				</th:block>
 			  </ul>
 			</nav>

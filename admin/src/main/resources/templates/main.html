@@ -21,7 +21,7 @@
 
 <!-- Custom styles for this template-->
 <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -63,7 +63,7 @@
 				<div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/list/admin}">관리자 조회/승인/삭제</a> 						
+						<a class="collapse-item" th:href="@{/admin/list}">관리자 조회/승인/삭제</a> 						
 						<a class="collapse-item" href="#">상단배너등록</a> 
 						<a class="collapse-item" th:href="@{/item/get}">홈페이지광고등록</a>
 					</div>
@@ -294,11 +294,11 @@
 
 
 	<!-- Page level plugins -->
-	<script src="vendor/chart.js/Chart.min.js"></script>
+	<script th:src="@{vendor/chart.js/Chart.min.js}"></script>
 
 	<!-- Page level custom scripts -->
-	<script src="js/demo/chart-area-demo.js"></script>
-	<script src="js/demo/chart-pie-demo.js"></script>
+	<script th:src="@{js/demo/chart-area-demo.js}"></script>
+	<script th:src="@{js/demo/chart-pie-demo.js}"></script>
 
 </body>
 

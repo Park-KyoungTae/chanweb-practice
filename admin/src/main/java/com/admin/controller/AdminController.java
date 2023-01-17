@@ -6,12 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.dto.Criteria;
 import com.admin.dto.Page;
 import com.admin.service.AdminService;
 
-@RequestMapping("/list")
+@RequestMapping("/admin")
 @Controller
 public class AdminController {
 	
@@ -20,7 +21,7 @@ public class AdminController {
 	
 	String dir ="list/";
 	
-	@GetMapping("/admin")
+	@GetMapping("/list")
 	public String get(Model model, 
 				@RequestParam(value="pageNum", defaultValue="1") Integer pageNum,
 				@RequestParam(value="amount", defaultValue="10") Integer amount
@@ -34,6 +35,28 @@ public class AdminController {
 //			e.printStackTrace();
 		}
 		model.addAttribute("center",dir+"admin");
+		return "main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/delete")
+	public String delete(int del) {
+		try {
+			admservice.remove(del);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		return "main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/approval")
+	public String approval(int apr) {
+		try {
+			admservice.changeStatus(apr);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
 		return "main";
 	}
 }
