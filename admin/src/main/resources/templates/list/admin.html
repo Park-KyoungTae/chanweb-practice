@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<!-- Begin Page Content -->
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-function checked_delete(del){
+function checked_delete(chk){
 	$.ajax({
 		url:'[[@{/admin/delete}]]',
-		data:{"del":del},
+		data:{"del":chk},
 		success:function(){
 			location.reload();
 		},
@@ -18,6 +17,7 @@ function checked_delete(del){
 	});
 };
 
+	
 function checked_approval(apr){
 	$.ajax({
 		url:'[[@{/admin/approval}]]',
@@ -32,13 +32,49 @@ function checked_approval(apr){
 	});
 };
 
+function formSubmit(){
+	var formData={
+		option:$('select[name=option]').val(),
+		searchVal:$('#keyword').val()
+	};
+	
+	$.ajax({
+		url:'[[@{/admin/searchlist}]]',
+		type:'get',
+		data:formData,
+		success:function(Admin){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터전송 실패');
+			return false;
+		}
+	});
+};
+
+function waitaccount(){
+	$.ajax({
+		url:'[[@{/admin/searchlist}]]',
+		type:'get',
+		data:{"option":"admin_status",
+			"searchVal":"N"},
+		success:function(Admin){
+			location.reload();
+		},
+		error:function(){
+			alert('데이터전송 실패');
+			return false;
+		}
+	});
+};
+
 $(document).ready(function(){
 	$('#selectall').click(function(){
-		$("input[name='checkbox']").attr("checked", true);
+		$("input[name='checkbox']").prop("checked", true);
 	});
 	
 	$('#cancelall').click(function(){
-		$("input[name='checkbox']").attr("checked", false);
+		$("input[name='checkbox']").prop("checked", false);
 	});
 	
 	$('#delete').click(function(){
@@ -46,7 +82,7 @@ $(document).ready(function(){
 		if(result){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();
-	  	    checked_delete(del);	
+	  	    checked_delete(chk);	
 		});
 			alert('삭제완료!');
 		}else{ 
@@ -66,25 +102,30 @@ $(document).ready(function(){
 			alert('취소!');
 		}
 	});
+	
+	$('#waitaccount').click(function(){
+		waitaccount();
+	});
+
 });
 
-	
 </script>
 </head>
+<body>
 	<div class="card shadow mb-3" style="width:80%;">
 		<div class="card-header py-3">
 			<h4 class="m-1 font-weight-bold text-dark d-inline">관리자 계정</h4>
 		<div class="search_box float-right">
-		    <form id="searchForm" onsubmit="return false;">
+		    <form id="searchForm">
 		        <div class="sch_group fl">
-		            <select id="searchType" name="searchType" title="검색 유형 선택">
-		                <option value="id">아이디</option>
-		                <option value="name">이름</option>
-		                <option value="class">직책</option>
-		                <option value="status">승인상태</option>
+		            <select id="searchOption" name="option" title="검색 유형 선택">
+		                <option value="admin_id">아이디</option>
+		                <option value="admin_name">이름</option>
+		                <option value="admin_class">직책</option>
+		                <option value="admin_status">승인상태</option>
 		            </select>
-		            <input type="text" id="keyword" name="keyword" placeholder="키워드를 선택하세요." title="키워드 입력" />
-		            <button type="button" class="bt_search" onclick="movePage(1);"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
+		            <input type="text" name="searchVal" id="keyword" placeholder="키워드를 선택하세요." title="키워드 입력"  autocomplete="off" />
+		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
 		        </div>
 		    </form>
 		</div>
@@ -120,15 +161,18 @@ $(document).ready(function(){
 			</div>
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">
-			  <th:block th:if="${pageMaker.prev}">
-			    <li class="page-item previous"><a class="page-link" th:href="@{/admin/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount})}">이전</a></li>
-			   </th:block>	
-			   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
-			    	<li class="page-item"><a class="page-link num" th:href="@{/admin/list(pageNum=${num},amount=${pageMaker.cri.amount})}" th:text="${num}"></a></li>
-			 	</th:block>
-				<th:block th:if="${pageMaker.next}">
-				    <li class="page-item next"><a class="page-link" th:href="@{/admin/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount})}">다음</a></li>
-				</th:block>
+				   <th:block th:if="${pageMaker.prev}">
+				    	<li class="page-item previous"><a class="page-link" 
+				    	th:href="@{/admin/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				   </th:block>	
+				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
+				    	<li class="page-item"><a class="page-link num" 
+				    	th:href="@{/admin/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				   </th:block>
+			   	   <th:block th:if="${pageMaker.next}">
+				  		<li class="page-item next"><a class="page-link" 
+				   		th:href="@{/admin/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+			   		</th:block>
 			  </ul>
 			</nav>
 			
@@ -143,4 +187,5 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-    </html>
+	</body>
+</html>

@@ -52,12 +52,13 @@ public class AdminService implements MyService<Integer, Admin>{
 	};
 	
 	//COUNT
-	public int getTotal() throws Exception{
-		return admmapper.getTotal();
+	public int getTotal(Criteria cri) throws Exception{
+		return admmapper.getTotal(cri);
 	}
 	
 	//changeStatus
 	public void changeStatus(int apr) throws Exception{
 		admmapper.changeStatus(apr);
 	}
+	
 }

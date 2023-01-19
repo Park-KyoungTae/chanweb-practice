@@ -13,7 +13,8 @@ import com.admin.frame.MyMapper;
 @Repository
 public interface AdminMapper extends MyMapper<Integer, Admin>{
 	public Admin search(String id) throws Exception;
-	public List<Admin> getListByPaging(Criteria page) throws Exception;
-	public int getTotal() throws Exception;
+	public List<Admin> getListByPaging(Criteria cri) throws Exception;
+	public int getTotal(Criteria cri) throws Exception;
 	public void changeStatus(int apr) throws Exception;
+
 }
