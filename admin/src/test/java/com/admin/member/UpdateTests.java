@@ -1,23 +1,26 @@
 package com.admin.member;
 
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.admin.dto.Admin;
-import com.admin.service.AdminService;
+import com.admin.dto.Member;
+import com.admin.service.MemberService;
 
 @SpringBootTest
 class UpdateTests {
 
 	@Autowired
-	AdminService service;
+	MemberService service;
 	
 	@Test
 	void contextLoads() {
-		Admin adm = new Admin(104,"best","best4321","베스트","주임",'A');
+		Date date = new Date();
+		Member mem = new Member(3,"id04","pwd04","박경태","kt@naver.com","010-3333-3333",'A','A',date,null);
 		try {
-			service.modify(adm);
+			service.modify(mem);
 			System.out.println("OK");
 		} catch (Exception e) {
 			System.out.println("Fail");

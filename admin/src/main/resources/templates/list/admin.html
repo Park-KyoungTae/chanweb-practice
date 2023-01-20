@@ -42,7 +42,7 @@ function formSubmit(){
 		url:'[[@{/admin/searchlist}]]',
 		type:'get',
 		data:formData,
-		success:function(Admin){
+		success:function(){
 			location.reload();
 		},
 		error:function(){
@@ -58,7 +58,7 @@ function waitaccount(){
 		type:'get',
 		data:{"option":"admin_status",
 			"searchVal":"N"},
-		success:function(Admin){
+		success:function(){
 			location.reload();
 		},
 		error:function(){
@@ -161,11 +161,12 @@ $(document).ready(function(){
 			</div>
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">
+			  <th:block th:if="${pageMaker.endPage!=0}">
 				   <th:block th:if="${pageMaker.prev}">
 				    	<li class="page-item previous"><a class="page-link" 
 				    	th:href="@{/admin/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
 				   </th:block>	
-				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
+				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
 				    	<li class="page-item"><a class="page-link num" 
 				    	th:href="@{/admin/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
 				   </th:block>
@@ -173,6 +174,7 @@ $(document).ready(function(){
 				  		<li class="page-item next"><a class="page-link" 
 				   		th:href="@{/admin/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
 			   		</th:block>
+			  </th:block>
 			  </ul>
 			</nav>
 			

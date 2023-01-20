@@ -59,6 +59,7 @@ public class AdminController {
 		
 		Page page = new Page(cri,total);
 		
+		System.out.println(page.toString());
 		model.addAttribute("admin",adms);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");

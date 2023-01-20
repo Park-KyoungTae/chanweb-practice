@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.admin.dto.Criteria;
 import com.admin.dto.Member;
 import com.admin.frame.MyService;
 import com.admin.mapper.MemberMapper;
@@ -44,4 +45,20 @@ public class MemberService implements MyService<Integer, Member>{
 	public Member search(String id) throws Exception{
 		return memmapper.search(id);
 	}
+	
+	//Paging
+	public List<Member> getListByPaging(Criteria cri) throws Exception{
+		return memmapper.getListByPaging(cri);
+	};
+	
+	//COUNT
+	public int getTotal(Criteria cri) throws Exception{
+		return memmapper.getTotal(cri);
+	}
+	
+	//changeStatus
+	public void changeStatus(int apr) throws Exception{
+		memmapper.changeStatus(apr);
+	}
+	
 }

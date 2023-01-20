@@ -65,7 +65,7 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/admin/list}">관리자 조회/승인/삭제</a> 						
 						<a class="collapse-item" href="#">상단배너등록</a> 
-						<a class="collapse-item" th:href="@{/item/get}">홈페이지광고등록</a>
+						<a class="collapse-item" href="#">홈페이지광고등록</a>
 					</div>
 				</div></li>
 			<!-- Divider -->
@@ -84,7 +84,7 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/member/list}">회원정보 조회</a> 						
-						<a class="collapse-item" th:href="@{/member/list}">탈퇴회원 처리</a> 						
+						<a class="collapse-item" href="#">탈퇴회원 처리</a> 						
 						<a class="collapse-item" href="#">회원등급 관리</a>
 					</div>
 				</div></li>
@@ -208,7 +208,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-900 font-weight-bold" th:text="${session.loginadm.admin_name}"></span>
                                 <span class="mr-4 d-none d-lg-inline text-gray-900" th:text="${session.loginadm.admin_class} + ' 님 환영합니다' "></span>                                  
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <svg xmlns:th="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 								  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 								  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 								</svg>
