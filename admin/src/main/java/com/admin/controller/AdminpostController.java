@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.admin.dto.Category;
 import com.admin.dto.Criteria;
+import com.admin.dto.AdminPost;
 import com.admin.dto.Page;
-import com.admin.service.CategoryService;
+import com.admin.service.AdminpostService;
 
-@RequestMapping("/category")
+@RequestMapping("/adminpost")
 @Controller
-public class CategoryController {
+public class AdminpostController {
 	
 	@Autowired
-	CategoryService cateservice;
+	AdminpostService admpostservice;
 	
 	String dir ="list/";
 	
@@ -48,24 +48,24 @@ public class CategoryController {
 		Criteria cri = new Criteria(pageNum,amount,option,searchVal,isSearchOk);
 		
 		int total=0;
-		List<Category> categorys=null;
+		
+		List<AdminPost> admposts=null;
 		
 		try {
-			categorys= cateservice.getListByPaging(cri);
-			total = cateservice.getTotal(cri);
+			admposts= admpostservice.getListByPaging(cri);
+			total = admpostservice.getTotal(cri);
 			
 		} catch (Exception e) {
 		}
 		
 		Page page = new Page(cri,total);
 		
-		System.out.println(page.toString());
-		model.addAttribute("category",categorys);
+		model.addAttribute("admin_post",admposts);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
-		model.addAttribute("center",dir+"category");
+		model.addAttribute("center",dir+"adminpost");
 		
 		return "main";
 	}
@@ -77,7 +77,7 @@ public class CategoryController {
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
-		return "rediret:/category/list";
+		return "rediret:/adminpost/list";
 	}
 	
 	//삭제버튼
@@ -85,22 +85,11 @@ public class CategoryController {
 	@RequestMapping("/delete")
 	public String delete(int del) {
 		try {
-			cateservice.remove(del);
+			admpostservice.remove(del);
 		} catch (Exception e) {
 //			e.printStackTrace();
 		}
 		return "main";
 	}
-	
-	@RequestMapping("/popupsignUp")
-	public String popupSignUp() {
-		return "popup/categoryregister";
-	}
-	
-	@RequestMapping("/popupmodify")
-	public String popupModify() {
-		return "popup/categorymodify";
-	}
-
 
 }

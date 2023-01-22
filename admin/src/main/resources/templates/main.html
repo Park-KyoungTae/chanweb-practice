@@ -102,7 +102,7 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/category/list}">카테고리 관리</a> 
-						<a class="collapse-item" href="#">상품 관리/ 할인</a>
+						<a class="collapse-item" th:href="@{/product/list}">상품 관리/ 할인</a>
 						<a class="collapse-item" href="#">거래처관리</a>
 					</div>
 				</div></li>
@@ -120,7 +120,7 @@
 				<div id="collapseCoupon" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">쿠폰등록</a> 
+						<a class="collapse-item" th:href="@{/coupon/list}">쿠폰등록</a> 
 						<a class="collapse-item" href="#">이벤트등록</a>
 					</div>
 				</div></li>
@@ -132,13 +132,13 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseOrder"
-				aria-expanded="true" aria-controls="collapseOrder"> <i
-					class="fas fa-fw fa-cog"></i> <span>주문/배송</span>
+				aria-expanded="true" aria-controls="collapseOrder"> 
+				<i class="fas fa-fw fa-cog" ></i> <span>주문/배송</span>
 			</a>
 				<div id="collapseOrder" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="utilities-color.html">주문조회 /배송상태 변경</a> <a
+						<a class="collapse-item" th:href="@{/orderlist/list}">주문조회 /배송상태 변경</a> <a
 							class="collapse-item" href="#">배송가능지역/배송비설정</a> <a
 							class="collapse-item" href="#">반송/환불</a> <a
 							class="collapse-item" href="#">배송사관리</a> 
@@ -158,8 +158,7 @@
 				<div id="collapsePost" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">공지사항등록</a> <a
-							class="collapse-item" href="#">많이묻는질문(Q&A)</a>
+						<a class="collapse-item" th:href="@{/adminpost/list}">공지사항/Q&A</a>
 						<a class="collapse-item" href="#">1대1 문의</a> <a
 							class="collapse-item" href="#">리뷰관리</a>
 					</div>

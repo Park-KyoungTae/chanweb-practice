@@ -54,7 +54,7 @@ $(document).ready(function(){
 		$("input[name='checkbox']:checked").each(function(){
 			var chk =$(this).closest("th").next().text();
 	  	    checked_delete(chk);	
-		});
+		});	
 			alert('삭제완료!');
 		}else{ 
 			alert('취소!');
@@ -62,13 +62,22 @@ $(document).ready(function(){
 	});
 	
 	$('#signUp').click(function(){
-		window.open('[[@{/category/popupsignUp}]]','window','width=650, height=260 left=500 top=300');
+		var signup =window.open('[[@{/category/popupsignUp}]]','window','width=650, height=260 left=500 top=300');
 	});	
 	
 	$('#modify').click(function(){
-		window.open('[[@{/category/popupmodify}]]','window','width=750, height=260 left=500 top=300');
-	});
 
+		if($('input:checkbox[name=checkbox]:checked').length ==0){
+			alert('수정할 카테고리를 선택해주세요');
+			return false;
+		}else if($('input:checkbox[name=checkbox]:checked').length >=2){
+			alert('수정할 카테고리를 하나만 선택해주세요');
+			return false;
+		}else{
+		
+		var modify=window.open('[[@{/category/popupmodify}]]','window','width=750, height=260 left=500 top=300');
+		}
+	});
 });
 
 </script>
@@ -114,8 +123,6 @@ $(document).ready(function(){
 					   		</th:block>
 						</tr>
 					</tbody>
-					<tfoot>
-					</tfoot>
 				</table>
 			</div>
 			<nav aria-label="Page navigation example">
@@ -138,12 +145,12 @@ $(document).ready(function(){
 			</nav>
 			
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<button type="button" id="selectall" class="btn btn-secondary btn-sm mr-3">전체선택</button>
-				<button type="button" id="cancelall" class="btn btn-secondary btn-sm mr-3">전체해제</button>
+				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
+				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="modify" class="btn btn-primary btn-sm float-right mr-3">카테고리 수정</button>
-				<button type="button" id="signUp" class="btn btn-success btn-sm float-right mr-3">카테고리 등록</button>
+				<button type="button" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정</button>
+				<button type="button" id="signUp" class="btn btn-success btn-sm float-right mr-3">등록</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>
