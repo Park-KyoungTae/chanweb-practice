@@ -5,7 +5,7 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/member/delete}]]',
+		url:'[[@{/orderlist/delete}]]',
 		data:{"del":chk},
 		success:function(){
 			location.reload();
@@ -20,7 +20,7 @@ function checked_delete(chk){
 	
 function checked_restore(chk){
 	$.ajax({
-		url:'[[@{/member/restore}]]',
+		url:'[[@{/orderlist/restore}]]',
 		data:{"res":chk},
 		success:function(){
 			location.reload();
@@ -39,7 +39,7 @@ function formSubmit(){
 	};
 	
 	$.ajax({
-		url:'[[@{/member/searchlist}]]',
+		url:'[[@{/orderlist/searchlist}]]',
 		type:'get',
 		data:formData,
 		success:function(){
@@ -54,7 +54,7 @@ function formSubmit(){
 
 function quitaccount(){
 	$.ajax({
-		url:'[[@{/member/searchlist}]]',
+		url:'[[@{/orderlist/searchlist}]]',
 		type:'get',
 		data:{"option":"member_status",
 			"searchVal":"N"},
@@ -115,15 +115,16 @@ $(document).ready(function(){
 <body>
 	<div class="card shadow mb-3" style="width:80%;">
 		<div class="card-header py-3">
-			<h4 class="m-1 font-weight-bold text-dark d-inline">회원정보</h4>
+			<h4 class="m-1 font-weight-bold text-dark d-inline">주문정보/배송상태변경</h4>
 		<div class="search_box float-right">
 		    <form id="searchForm">
 		        <div class="sch_group fl">
 		            <select id="searchOption" name="option" title="검색 유형 선택">
-		                <option value="member_id">아이디</option>
-		                <option value="member_name">이름</option>
-		                <option value="member_tel">전화번호</option>
-		                <option value="member_rank">회원등급</option>
+		                <option value="member_index">회원고유번호</option>
+		                <option value="order_state">주문상태</option>
+		                <option value="payment_method">결제방법</option>
+		                <option value="receiver">받는사람 이름</option>
+		                <option value="receiver_tel">받는사람 연락처</option>
 		            </select>
 		            <input type="text" name="searchVal" id="keyword" placeholder="키워드를 선택하세요." title="키워드 입력"  autocomplete="off" />
 		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
@@ -137,15 +138,15 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th></th>
+							<th>주문번호</th>
 							<th>회원번호</th>
-							<th>아이디</th>
-							<th>비밀번호</th>
-							<th>이름</th>
-							<th>이메일</th>
-							<th>전화번호</th>
-							<th>회원등급</th>
-							<th>현재상태</th>
-							<th>가입일</th>
+							<th>총가격</th>
+							<th>배송비</th>
+							<th>총결제금액</th>
+							<th>결제방법</th>
+							<th>결제일</th>
+							<th>주문상태</th>
+							<th></th>
 							<th>탈퇴일</th>
 						</tr>
 					</thead>
@@ -173,15 +174,15 @@ $(document).ready(function(){
 			  <th:block th:if="${pageMaker.endPage!=0}">
 				   <th:block th:if="${pageMaker.prev}">
 				    	<li class="page-item previous"><a class="page-link" 
-				    	th:href="@{/member/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				    	th:href="@{/orderlist/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
 				   </th:block>	
 				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
 				    	<li class="page-item"><a class="page-link num" 
-				    	th:href="@{/member/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				    	th:href="@{/orderlist/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
 				   </th:block>
 			   	   <th:block th:if="${pageMaker.next}">
 				  		<li class="page-item next"><a class="page-link" 
-				   		th:href="@{/member/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+				   		th:href="@{/orderlist/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
 			   		</th:block>
 			  </th:block>
 			  </ul>
