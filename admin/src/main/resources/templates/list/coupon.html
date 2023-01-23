@@ -5,7 +5,7 @@
 <script>
 function checked_delete(chk){
 	$.ajax({
-		url:'[[@{/member/delete}]]',
+		url:'[[@{/coupon/delete}]]',
 		data:{"del":chk},
 		success:function(){
 			location.reload();
@@ -17,20 +17,7 @@ function checked_delete(chk){
 	});
 };
 
-	
-function checked_restore(chk){
-	$.ajax({
-		url:'[[@{/member/restore}]]',
-		data:{"res":chk},
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert('복원프로세스 실패');
-			return false;
-		}
-	});
-};
+
 
 function formSubmit(){
 	var formData={
@@ -39,7 +26,7 @@ function formSubmit(){
 	};
 	
 	$.ajax({
-		url:'[[@{/member/searchlist}]]',
+		url:'[[@{/coupon/searchlist}]]',
 		type:'get',
 		data:formData,
 		success:function(){
@@ -52,12 +39,12 @@ function formSubmit(){
 	});
 };
 
-function quitaccount(){
+function canUseCoupon(){
 	$.ajax({
-		url:'[[@{/member/searchlist}]]',
+		url:'[[@{/coupon/searchlist}]]',
 		type:'get',
-		data:{"option":"member_status",
-			"searchVal":"N"},
+		data:{"option":"coupon_status",
+			"searchVal":"사용가능"},
 		success:function(){
 			location.reload();
 		},
@@ -89,23 +76,10 @@ $(document).ready(function(){
 			alert('취소!');
 		}
 	});
+
 	
-	$('#restore').click(function(){
-		var result = confirm("선택한 탈퇴계정을 복구하시겠습니까?");
-		if(result){
-		$("input[name='checkbox']:checked").each(function(){
-			var chk =$(this).closest("th").next().text();
-			console.log(chk);
-	  	    checked_restore(chk);	
-		});
-			alert('복구완료!');
-		}else{ 
-			alert('취소!');
-		}
-	});
-	
-	$('#quitaccount').click(function(){
-		quitaccount();
+	$('#canUseCoupon').click(function(){
+		canUseCoupon();
 	});
 
 });
@@ -120,10 +94,11 @@ $(document).ready(function(){
 		    <form id="searchForm">
 		        <div class="sch_group fl">
 		            <select id="searchOption" name="option" title="검색 유형 선택">
-		                <option value="member_id">아이디</option>
-		                <option value="member_name">이름</option>
-		                <option value="member_tel">전화번호</option>
-		                <option value="member_rank">회원등급</option>
+		                <option value="coupon_id">쿠폰번호</option>
+		                <option value="member_index">회원번호</option>
+		                <option value="coupon_discountper">할인율</option>
+		                <option value="coupon_expiredate">만료일</option>
+		                <option value="coupon_status">쿠폰상태</option>
 		            </select>
 		            <input type="text" name="searchVal" id="keyword" placeholder="키워드를 선택하세요." title="키워드 입력"  autocomplete="off" />
 		            <button type="button" id="submit" class="bt_search" onclick="return formSubmit()"><i class="fas fa-search"></i><span class="skip_info">검색</span></button>
@@ -137,31 +112,23 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th></th>
+							<th>쿠폰번호</th>
 							<th>회원번호</th>
-							<th>아이디</th>
-							<th>비밀번호</th>
-							<th>이름</th>
-							<th>이메일</th>
-							<th>전화번호</th>
-							<th>회원등급</th>
-							<th>현재상태</th>
-							<th>가입일</th>
-							<th>탈퇴일</th>
+							<th>최소금액</th>
+							<th>할인율</th>
+							<th>만료일</th>
+							<th>쿠폰상태</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="member:${member}">
+						<tr th:each="coupon:${coupon}">
 							<th><input type="checkbox" name="checkbox"></input></th>
-							<th th:text="${member.member_index}"></th>
-							<th th:text="${member.member_id}"></th>
-							<th th:text="${member.member_pw}"></th>
-							<th th:text="${member.member_name}"></th>
-							<th th:text="${member.member_email}"></th>
-							<th th:text="${member.member_tel}"></th>
-							<th th:text="${member.member_rank}"></th>
-							<th th:text="${member.member_status}"></th>
-							<th th:text="${member.member_joindate}"></th>
-							<th th:text="${member.member_dropdate}"></th>
+							<th th:text="${coupon.coupon_id}"></th>
+							<th th:text="${coupon.member_index}"></th>
+							<th th:text="${coupon.coupon_minprice}"></th>
+							<th th:text="${coupon.coupon_discountper}"></th>
+							<th th:text="${coupon.coupon_expiredate}"></th>
+							<th th:text="${coupon.coupon_status}"></th>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -173,27 +140,27 @@ $(document).ready(function(){
 			  <th:block th:if="${pageMaker.endPage!=0}">
 				   <th:block th:if="${pageMaker.prev}">
 				    	<li class="page-item previous"><a class="page-link" 
-				    	th:href="@{/member/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
+				    	th:href="@{/coupon/list(pageNum=${pageMaker.startPage-1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">이전</a></li>
 				   </th:block>	
 				   <th:block th:each="num : ${#numbers.sequence(pageMaker.startPage	,pageMaker.endPage)}">
 				    	<li class="page-item"><a class="page-link num" 
-				    	th:href="@{/member/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
+				    	th:href="@{/coupon/list(pageNum=${num},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}" th:text="${num}"></a></li>
 				   </th:block>
 			   	   <th:block th:if="${pageMaker.next}">
 				  		<li class="page-item next"><a class="page-link" 
-				   		th:href="@{/member/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
+				   		th:href="@{/coupon/list(pageNum=${pageMaker.endPage+1},amount=${pageMaker.cri.amount},option=${pageMaker.cri.option},searchVal=${pageMaker.cri.searchVal})}">다음</a></li>
 			   		</th:block>
 			  </th:block>
 			  </ul>
 			</nav>
 			
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<button type="button" id="selectall" class="btn btn-secondary btn-sm mr-3">전체선택</button>
-				<button type="button" id="cancelall" class="btn btn-secondary btn-sm mr-3">전체해제</button>
+				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
+				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
+				<button type="button" id="canUseCoupon" class="btn btn-primary btn-sm float-right mr-3">사용가능 쿠폰조회</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="quitaccount" class="btn btn-primary btn-sm float-right mr-3">탈퇴계정 계정목록</button>
-				<button type="button" id="restore" class="btn btn-success btn-sm float-right mr-3">탈퇴계정 복원</button>
+				<button type="button" id="produce" class="btn btn-success btn-sm float-right mr-3">쿠폰 생성</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>

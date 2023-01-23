@@ -113,16 +113,18 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<div class="card shadow mb-3" style="width:80%;">
+	<div class="card shadow mb-3" style="width:100%;">
 		<div class="card-header py-3">
 			<h4 class="m-1 font-weight-bold text-dark d-inline">주문정보/배송상태변경</h4>
 		<div class="search_box float-right">
 		    <form id="searchForm">
 		        <div class="sch_group fl">
 		            <select id="searchOption" name="option" title="검색 유형 선택">
-		                <option value="member_index">회원고유번호</option>
+		                <option value="order_id">주문번호</option>
 		                <option value="order_state">주문상태</option>
+		                <option value="shippingfee">배송비</option>
 		                <option value="payment_method">결제방법</option>
+		                <option value="order_state">주문상태</option>
 		                <option value="receiver">받는사람 이름</option>
 		                <option value="receiver_tel">받는사람 연락처</option>
 		            </select>
@@ -146,23 +148,35 @@ $(document).ready(function(){
 							<th>결제방법</th>
 							<th>결제일</th>
 							<th>주문상태</th>
-							<th></th>
-							<th>탈퇴일</th>
+							<th>주문상태변경</th>
+							<th>받는사람</th>
+							<th>연락처</th>
+							<th>요청사항</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="member:${member}">
+						<tr th:each="orderlist:${orderlist}">
 							<th><input type="checkbox" name="checkbox"></input></th>
-							<th th:text="${member.member_index}"></th>
-							<th th:text="${member.member_id}"></th>
-							<th th:text="${member.member_pw}"></th>
-							<th th:text="${member.member_name}"></th>
-							<th th:text="${member.member_email}"></th>
-							<th th:text="${member.member_tel}"></th>
-							<th th:text="${member.member_rank}"></th>
-							<th th:text="${member.member_status}"></th>
-							<th th:text="${member.member_joindate}"></th>
-							<th th:text="${member.member_dropdate}"></th>
+							<th th:text="${orderlist.order_id}"></th>
+							<th th:text="${orderlist.member_index}"></th>
+							<th th:text="${orderlist.product_totalprice}"></th>
+							<th th:text="${orderlist.shippingfee}"></th>
+							<th th:text="${orderlist.order_totalpayment}"></th>
+							<th th:text="${orderlist.payment_method}"></th>
+							<th th:text="${orderlist.order_date}"></th>
+							<th th:text="${orderlist.order_state}"></th>
+							<th>
+							<select id="searchOption" name="state_option" title="검색 유형 선택">
+							  <option value="none">--선택--</option>
+		              		  <option value="ready">배송준비</option>
+		               		  <option value="shipping">배송중</option>
+		               		  <option value="complete">배송완료</option>
+		               		  <option value="cancel">배송취소</option>
+		           			</select>
+		           			</th>
+							<th th:text="${orderlist.receiver}"></th>
+							<th th:text="${orderlist.receiver_tel}"></th>
+							<th th:text="${orderlist.delivery_info}"></th>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -188,13 +202,12 @@ $(document).ready(function(){
 			  </ul>
 			</nav>
 			
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<button type="button" id="selectall" class="btn btn-secondary btn-sm mr-3">전체선택</button>
-				<button type="button" id="cancelall" class="btn btn-secondary btn-sm mr-3">전체해제</button>
+			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
+				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
+				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
+				<button type="button" id="save" class="btn btn-success btn-sm mr-3">배송변경사항 저장</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-				<button type="button" id="quitaccount" class="btn btn-primary btn-sm float-right mr-3">탈퇴계정 계정목록</button>
-				<button type="button" id="restore" class="btn btn-success btn-sm float-right mr-3">탈퇴계정 복원</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>
