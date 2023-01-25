@@ -113,13 +113,13 @@ $(document).ready(function(){
 					<tbody>
 						<tr th:each="category:${category}">
 							<th><input type="checkbox" name="checkbox"></input></th>
-							<th th:text="${category.category_id}"></th>
-							<th th:text="${category.category_title}"></th>
+							<th id="id" th:text="${category.category_id}"></th>
+							<th id="title" th:text="${category.category_title}"></th>
 							<th:block th:if="${category.category_parent==0}">
 							<th>없음</th>
 					   		</th:block>
 							<th:block th:if="${category.category_parent!=0}">
-							<th th:text="${category.category_parent}"></th>
+							<th id="parent_index" th:text="${category.category_parent}"></th>
 					   		</th:block>
 						</tr>
 					</tbody>

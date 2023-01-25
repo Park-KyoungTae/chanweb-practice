@@ -23,15 +23,46 @@
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script>
-$(document).ready(function(){
-	var id = opener.$("input:checkbox[name='checkbox']:checked").val();
-	$('input:checkbox[name="category_id"]').closest("th").next().val(id);
+function modify_fnc(id,modify_title,modify_parent){
+	$.ajax({
+		url:'[[@{/category/modify}]]',
+		type:'get',
+		data:{category_id:id,
+			category_title:modify_title,
+			category_parent:modify_parent},
+		success:function(){
+			alert('수정완료!');
+			opener.document.location.reload();
+			self.close();
+		},
+		error:function(){
+			alert('수정 실패!');
+			return false;
+		}
+	});
+};
 
-	var title = opener.$("input:checkbox[name='checkbox']:checked").val();
-	$('input:checkbox[name="category_title"]').closest("th").next().next().val(title);
+$(document).ready(function(){
+	var id= opener.$("input[name='checkbox']:checked").closest("th").next().text();
+	var title= opener.$("input[name='checkbox']:checked").closest("th").next().next().text();
+	var parent= opener.$("input[name='checkbox']:checked").closest("th").next().next().next().text();
 	
-	var parent = opener.$("input:checkbox[name='checkbox']:checked").val();
-	$('input:checkbox[name="category_parent"]').closest("th").next().next().next().val(parent);
+	
+	$("input[name='category_id']").val(id);
+	$("input[name='category_title']").val(title);
+	$("input[name='category_parent']").val(parent);
+
+	$("#modify_btn").click(function(){
+		var modify_title =$("input[name='category_title']").val();
+		
+		var modify_parent;
+		if($("input[name='category_parent']").val()=="없음"){
+			modify_parent=0;
+		}else{
+			modify_parent =$("input[name='category_parent']").val();
+		}
+		modify_fnc(id,modify_title,modify_parent);
+	});
 });
 </script>
 </head>
@@ -44,7 +75,7 @@ $(document).ready(function(){
 						<tr>
 							<th>카테고리 번호</th>
 							<th>카테고리 이름</th>
-							<th>상위 카테고리</th>
+							<th>상위 카테고리 번호</th>
 						</tr>
 					</thead>
 					<tbody>

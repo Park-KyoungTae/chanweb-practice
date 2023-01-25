@@ -59,7 +59,6 @@ public class CategoryController {
 		
 		Page page = new Page(cri,total);
 		
-		System.out.println(page.toString());
 		model.addAttribute("category",categorys);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
@@ -100,6 +99,19 @@ public class CategoryController {
 	@RequestMapping("/popupmodify")
 	public String popupModify() {
 		return "popup/categorymodify";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/modify")
+	public String modify(int category_id, String category_title, int category_parent) {
+		Category category = new Category(category_id,category_title,category_parent);
+		category.toString();
+		try {
+			cateservice.modify(category);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "rediret:/category/popupmodify";
 	}
 
 
