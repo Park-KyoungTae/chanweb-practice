@@ -114,5 +114,17 @@ public class CategoryController {
 		return "rediret:/category/popupmodify";
 	}
 
-
+	@ResponseBody
+	@RequestMapping("/register")
+	public String register(String category_title, int category_parent) {
+		int category_id=0;
+		Category category = new Category(category_id,category_title,category_parent);
+		category.toString();
+		try {
+			cateservice.register(category);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "rediret:/category/popupsignUp";
+	}
 }

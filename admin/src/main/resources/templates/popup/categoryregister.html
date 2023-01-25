@@ -23,7 +23,36 @@
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
 <script>
+function register_fnc(register_title,register_parent){
+	$.ajax({
+		url:'[[@{/category/register}]]',
+		type:'get',
+		data:{category_title:register_title,
+			category_parent:register_parent},
+		success:function(){
+			alert('등록완료!');
+			opener.document.location.reload();
+			self.close();
+		},
+		error:function(){
+			alert('등록 실패!');
+			return false;
+		}
+	});
+};
+
 $(document).ready(function(){
+	$("#register_btn").click(function(){
+		var register_title =$("input[name='category_title']").val();
+		
+		var register_parent;
+		if($("input[name='category_parent']").val()=="없음"){
+			register_parent=0;
+		}else{
+			register_parent =$("input[name='category_parent']").val();
+		}
+		register_fnc(register_title,register_parent);
+	});
 });
 </script>
 </head>
@@ -35,7 +64,7 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th>카테고리 이름</th>
-							<th>상위 카테고리</th>
+							<th>상위 카테고리 번호</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,7 +76,7 @@ $(document).ready(function(){
 				</table>
 			</div>
 		<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
-		<button type="button" id="register" class="btn btn-success btn-sm float-right mr-4">카테고리 등록</button>
+		<button type="button" id="register_btn" class="btn btn-success btn-sm float-right mr-4">카테고리 등록</button>
 		</div>
 			
 		</div>
