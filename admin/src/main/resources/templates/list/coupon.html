@@ -17,8 +17,6 @@ function checked_delete(chk){
 	});
 };
 
-
-
 function formSubmit(){
 	var formData={
 		option:$('select[name=option]').val(),
@@ -44,7 +42,7 @@ function canUseCoupon(){
 		url:'[[@{/coupon/searchlist}]]',
 		type:'get',
 		data:{"option":"coupon_status",
-			"searchVal":"사용가능"},
+			"searchVal":"사용불가능"},
 		success:function(){
 			location.reload();
 		},
@@ -89,7 +87,7 @@ $(document).ready(function(){
 <body>
 	<div class="card shadow mb-3" style="width:80%;">
 		<div class="card-header py-3">
-			<h4 class="m-1 font-weight-bold text-dark d-inline">회원정보</h4>
+			<h4 class="m-1 font-weight-bold text-dark d-inline">쿠폰</h4>
 		<div class="search_box float-right">
 		    <form id="searchForm">
 		        <div class="sch_group fl">
@@ -157,7 +155,7 @@ $(document).ready(function(){
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
-				<button type="button" id="canUseCoupon" class="btn btn-primary btn-sm float-right mr-3">사용가능 쿠폰조회</button>
+				<button type="button" id="canUseCoupon" class="btn btn-primary btn-sm float-right mr-3">사용불가능 쿠폰</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="produce" class="btn btn-success btn-sm float-right mr-3">쿠폰 생성</button>

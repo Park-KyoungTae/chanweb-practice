@@ -14,5 +14,5 @@ import com.admin.frame.MyMapper;
 public interface ProductMapper extends MyMapper<Integer, Product>{
 	public List<Product> getListByPaging(Criteria cri) throws Exception;
 	public int getTotal(Criteria cri) throws Exception;
-
+	public int changeSale(int id, int salerate) throws Exception;
 }

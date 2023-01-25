@@ -50,4 +50,8 @@ public class ProductService implements MyService<Integer, Product>{
 	public int getTotal(Criteria cri) throws Exception{
 		return productmapper.getTotal(cri);
 	}
+	
+	public int changeSale(int id, int salerate) throws Exception{
+		return productmapper.changeSale(id,salerate);
+	}
 }

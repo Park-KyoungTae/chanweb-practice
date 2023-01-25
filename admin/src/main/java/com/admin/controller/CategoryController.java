@@ -91,10 +91,6 @@ public class CategoryController {
 		return "main";
 	}
 	
-	@RequestMapping("/popupsignUp")
-	public String popupSignUp() {
-		return "popup/categoryregister";
-	}
 	
 	@RequestMapping("/popupmodify")
 	public String popupModify() {
@@ -112,6 +108,11 @@ public class CategoryController {
 			e.printStackTrace();
 		}
 		return "rediret:/category/popupmodify";
+	}
+	
+	@RequestMapping("/popupsignUp")
+	public String popupSignUp() {
+		return "popup/categoryregister";
 	}
 
 	@ResponseBody

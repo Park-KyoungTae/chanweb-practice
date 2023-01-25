@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.admin.dto.Category;
 import com.admin.dto.Criteria;
 import com.admin.dto.Product;
 import com.admin.dto.Page;
@@ -89,5 +91,48 @@ public class ProductController {
 //			e.printStackTrace();
 		}
 		return "main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/changesale")
+	public String changeSale(int product_id, int product_discount) {
+		try {
+			productservice.changeSale(product_id,product_discount);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		return "list/product";
+	}
+	
+	@RequestMapping("/popupmodify")
+	public String popupModify() {
+		return "popup/productmodify";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/modify")
+	public String modify(@RequestBody Product product) {
+		try {
+			productservice.modify(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "rediret:/product/popupmodify";
+	}
+	
+	@RequestMapping("/popupsignUp")
+	public String popupSignUp() {
+		return "popup/productregister";
+	}
+
+	@ResponseBody
+	@RequestMapping("/register")
+	public String register(@RequestBody Product product) {
+		try {
+			productservice.register(product);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "rediret:/product/popupsignUp";
 	}
 }

@@ -37,6 +37,23 @@ function formSubmit(){
 	});
 };
 
+var cnt=0;
+function changeSale(salerate,id){
+	$.ajax({
+		url:'[[@{/product/changesale}]]',
+		type:'get',
+		data:{product_id:id
+			,product_discount:salerate},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert(id+'번 상품 할인율 수정 실패');
+			cnt+=1;
+			return false;
+		}
+	});
+};
 
 $(document).ready(function(){
 	$('#selectall').click(function(){
@@ -73,6 +90,38 @@ $(document).ready(function(){
 			alert('취소!');
 		}
 	});
+	
+	
+	$('#salerate').click(function(){
+		$("input[name='salerate']").each(function(){
+				var salerate = $(this).val();
+				var id= $(this).closest("th").parent().children().first().next().text();
+				changeSale(salerate,id);
+		});
+		
+		if(cnt>0){
+			alert(cnt+'번 수정에 실패했습니다');
+		}else{
+			alert('할인율 수정 성공!');
+		}
+	});
+	
+	$('#register').click(function(){
+		var register =window.open('[[@{/product/popupsignUp}]]','window','width=1500, height=260 left=100 top=200');
+	});	
+	
+	$('#modify').click(function(){
+
+		if($('input:checkbox[name=checkbox]:checked').length ==0){
+			alert('수정할 제품을 선택해주세요');
+			return false;
+		}else if($('input:checkbox[name=checkbox]:checked').length >=2){
+			alert('수정할 제품을 하나만 선택해주세요');
+			return false;
+		}else{
+		var modify=window.open('[[@{/product/popupmodify}]]','window','width=1500, height=260 left=100 top=200');
+		}
+	});
 });
 
 </script>
@@ -102,7 +151,7 @@ $(document).ready(function(){
 						<tr>
 							<th></th>
 							<th>상품고유번호</th>
-							<th>카테고리고유번호</th>
+							<th>카테고리번호</th>
 							<th>상품명</th>
 							<th>상품설명</th>
 							<th>상품대표이미지</th>
@@ -123,7 +172,7 @@ $(document).ready(function(){
 							<th th:text="${product.product_detail_imgpath}"></th>
 							<th th:text="${product.product_price}"></th>
 							<th th:text="${product.product_essential}"></th>
-							<th><input type="text" th:value="${product.product_discount}" style="width:50px;"></input></th>
+							<th><input type="text" name="salerate" th:value="${product.product_discount}" style="width:50px;"></input></th>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -152,11 +201,11 @@ $(document).ready(function(){
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
-				<button type="button" id="register" class="btn btn-primary btn-sm float-right mr-3">할인율 등록</button>
+				<button type="button" id="salerate" class="btn btn-primary btn-sm float-right mr-3">할인율 수정</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="register" class="btn btn-success btn-sm float-right mr-3">등록</button>
-				<button type="button" id="modify" class="btn btn-success btn-sm float-right mr-3">수정</button>
+				<button type="button" id="modify" class="btn btn-primary btn-sm float-right mr-3">수정</button>
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>
 			</div>
 		</div>
