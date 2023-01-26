@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.admin.dto.Criteria;
 import com.admin.dto.AdminPost;
+import com.admin.dto.Criteria;
 import com.admin.dto.Page;
 import com.admin.service.AdminpostService;
 
@@ -60,6 +60,8 @@ public class AdminpostController {
 		
 		Page page = new Page(cri,total);
 		
+		session.setAttribute("cri_value",cri);
+		
 		model.addAttribute("admin_post",admposts);
 		model.addAttribute("pageMaker", page);
 		session.removeAttribute("option");
@@ -91,5 +93,63 @@ public class AdminpostController {
 		}
 		return "main";
 	}
+	
+	//게시글 뷰페이지
+	@GetMapping("/view")
+	public String get(Model model, HttpSession session, 
+			@RequestParam(value="id", defaultValue="0") Integer id){
+		AdminPost admpost = null;
+		try {
+			admpost= admpostservice.get(id);
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		model.addAttribute("adminpostView",admpost);
+		model.addAttribute("center","view/adminpostview");
+		return "main";
+	}
+	
+	@RequestMapping("/register")
+	public String register(Model model) {
 
+		model.addAttribute("center","view/adminpostregister");
+		return "main";
+	}
+	
+	@RequestMapping("/registerform")
+	public String registerForm(AdminPost admpost) {
+		admpost.toString();
+		try {
+			admpostservice.register(admpost);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			return "popup/adminpostregisterfail";
+		}
+		return "popup/adminpostregisterok";
+	}
+	
+	@RequestMapping("/modify")
+	public String modify(Model model, @RequestParam(value="id", defaultValue="0") Integer id ){
+		AdminPost admpost = null;
+
+		try {
+			admpost= admpostservice.get(id);
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+		model.addAttribute("admpost",admpost);
+		model.addAttribute("center","view/adminpostmodify");
+		return "main";
+	}
+	
+	@RequestMapping("/modifyform")
+	public String modifyForm(AdminPost admpost) {
+		try {
+			admpostservice.modify(admpost);
+		} catch (Exception e) {
+			// e.printStackTrace();
+			return "popup/adminpostmodifyfail";
+		}
+		return "popup/adminpostmodfiyok";
+	}
 }
