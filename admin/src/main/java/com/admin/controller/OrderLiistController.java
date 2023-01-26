@@ -90,4 +90,15 @@ public class OrderLiistController {
 		}
 		return "main";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/changestate")
+	public String changeState(int order_id, String order_state) {
+		try {
+			olservice.changeState(new OrderList(order_id,order_state));
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		return "list/orderlist";
+	}
 }

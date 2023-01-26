@@ -68,6 +68,24 @@ function quitaccount(){
 	});
 };
 
+var cnt=0;
+function changeState(id,state_option){
+	$.ajax({
+		url:'[[@{/orderlist/changestate}]]',
+		type:'get',
+		data:{order_id:id,
+			order_state:state_option},
+		success:function(){
+			location.reload();
+		},
+		error:function(){
+			alert(id+'번 주문 상태수정 실패!');
+			cnt+=1;
+			return false;
+		}
+	});
+};
+
 $(document).ready(function(){
 	$('#selectall').click(function(){
 		$("input[name='checkbox']").prop("checked", true);
@@ -107,7 +125,21 @@ $(document).ready(function(){
 	$('#quitaccount').click(function(){
 		quitaccount();
 	});
-
+	
+	$('#changes_save').click(function(){
+		$("select[name='state_option'] option:selected").each(function(){
+				var id = $(this).closest("th").parent().children().first().next().text();
+				var state_option = $(this).val();
+				if(state_option != "--선택--"){
+					changeState(id,state_option);
+				}
+		});
+		if(cnt>0){
+			alert(cnt+'번 수정에 실패했습니다');
+		}else{
+			alert('수정 성공!');
+		}
+	});
 });
 
 </script>
@@ -167,11 +199,11 @@ $(document).ready(function(){
 							<th th:text="${orderlist.order_state}"></th>
 							<th>
 							<select id="searchOption" name="state_option" title="검색 유형 선택">
-							  <option value="none">--선택--</option>
-		              		  <option value="ready">배송준비</option>
-		               		  <option value="shipping">배송중</option>
-		               		  <option value="complete">배송완료</option>
-		               		  <option value="cancel">주문취소</option>
+							  <option value="--선택--">--선택--</option>
+		              		  <option value="배송준비">배송준비</option>
+		               		  <option value="배송중">배송중</option>
+		               		  <option value="배송완료">배송완료</option>
+		               		  <option value="주문취소">주문취소</option>
 		           			</select>
 		           			</th>
 							<th th:text="${orderlist.receiver}"></th>
@@ -205,7 +237,7 @@ $(document).ready(function(){
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end">
 				<button type="button" id="selectall" class="btn btn-secondary btn-sm ml-3">전체선택</button>
 				<button type="button" id="cancelall" class="btn btn-secondary btn-sm ml-3 mr-auto">전체해제</button>
-				<button type="button" id="save" class="btn btn-success btn-sm mr-3">배송변경사항 저장</button>
+				<button type="button" id="changes_save" class="btn btn-success btn-sm mr-3">주문/배송 변경사항 저장</button>
 			</div>
 			<div class="d-grid gap-3 d-md-flex justify-content-md-end mt-3">
 				<button type="button" id="delete" class="btn btn-danger btn-sm mr-3">삭제</button>

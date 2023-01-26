@@ -50,4 +50,9 @@ public class OrderListService implements MyService<Integer, OrderList>{
 	public int getTotal(Criteria cri) throws Exception{
 		return olmapper.getTotal(cri);
 	}
+	
+	//배송상태변경
+	public void changeState(OrderList ol) throws Exception{
+		 olmapper.changeState(ol);
+	}
 }

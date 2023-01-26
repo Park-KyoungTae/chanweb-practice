@@ -19,6 +19,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		receiver=#{receiver},receiver_tel=#{receiver_tel},delivery_info=#{delivery_info} 
 		WHERE order_id=#{order_id}
 	</update>
+	<update id="changeState" parameterType="OrderList">
+		UPDATE order_list SET order_state=#{order_state}
+		WHERE order_id=#{order_id}
+	</update>
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM order_list WHERE order_id=#{order_id}
 	</delete>

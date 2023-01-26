@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.admin.dto.Category;
 import com.admin.dto.Criteria;
-import com.admin.dto.Product;
 import com.admin.dto.Page;
+import com.admin.dto.Product;
 import com.admin.service.ProductService;
 
 @RequestMapping("/product")

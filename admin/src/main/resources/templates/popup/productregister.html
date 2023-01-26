@@ -53,13 +53,13 @@ function register_fnc(register_category_id,register_name,
 $(document).ready(function(){
 		$("#register_btn").click(function(){
 			var register_category_id =$("input[name='product_title']").val();
-			var register_name =$("input[name='product_title']").val();
-			var register_description =$("input[name='product_title']").val();
-			var register_thumbnail_imgpath=$("input[name='product_title']").val();
-			var register_detail_imgpath=$("input[name='product_title']").val();
-			var register_price=$("input[name='product_title']").val();
-			var register_essential =$("input[name='product_title']").val();
-			var register_discount =$("input[name='product_title']").val();
+			var register_name =$("input[name='product_name']").val();
+			var register_description =$("input[name='product_description']").val();
+			var register_thumbnail_imgpath=$("input[name='product_thumbnail_imgpath']").val();
+			var register_detail_imgpath=$("input[name='product_detail_imgpath']").val();
+			var register_price=$("input[name='product_price']").val();
+			var register_essential =$("input[name='product_essential']").val();
+			var register_discount =$("input[name='product_dscount']").val();
 
 			register_fnc(register_category_id,register_name,
 					register_description,register_thumbnail_imgpath,

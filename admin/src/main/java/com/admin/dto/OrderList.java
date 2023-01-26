@@ -25,4 +25,10 @@ public class OrderList {
 	private String receiver;
 	private String receiver_tel;
 	private String delivery_info;
+	
+	public OrderList(int order_id, String order_state) {
+		super();
+		this.order_id = order_id;
+		this.order_state = order_state;
+	}
 }
