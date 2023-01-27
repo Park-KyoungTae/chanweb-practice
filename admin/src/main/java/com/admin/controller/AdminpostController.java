@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -113,12 +114,13 @@ public class AdminpostController {
 	public String register(Model model) {
 
 		model.addAttribute("center","view/adminpostregister");
+		model.addAttribute("AdminPost", new AdminPost());
 		return "main";
 	}
 	
 	@RequestMapping("/registerform")
-	public String registerForm(AdminPost admpost) {
-		admpost.toString();
+	public String registerForm(@ModelAttribute("AdminPost") AdminPost admpost) {
+		System.out.println(admpost.toString());
 		try {
 			admpostservice.register(admpost);
 		} catch (Exception e) {
@@ -129,27 +131,28 @@ public class AdminpostController {
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(Model model, @RequestParam(value="id", defaultValue="0") Integer id ){
+	public String modify(Model model, @RequestParam(value="id", defaultValue="0") Integer adminpost_id ){
 		AdminPost admpost = null;
-
 		try {
-			admpost= admpostservice.get(id);
+			admpost= admpostservice.get(adminpost_id);
+			System.out.println(admpost.toString());
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
 		model.addAttribute("admpost",admpost);
 		model.addAttribute("center","view/adminpostmodify");
+		model.addAttribute("AdminPost", new AdminPost());
 		return "main";
 	}
 	
 	@RequestMapping("/modifyform")
-	public String modifyForm(AdminPost admpost) {
+	public String modifyForm(@ModelAttribute("AdminPost") AdminPost admpost) {
 		try {
 			admpostservice.modify(admpost);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			return "popup/adminpostmodifyfail";
 		}
-		return "popup/adminpostmodfiyok";
+		return "popup/adminpostmodifyok";
 	}
 }

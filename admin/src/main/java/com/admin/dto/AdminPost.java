@@ -21,19 +21,17 @@ public class AdminPost {
 	private String post_content;
 	private String post_attach1;
 	private String post_attach2;
-	private Date register_date;
+	private String register_date;
 	
 	public AdminPost(int admin_index, String post_type, String post_subject, String post_content, String post_attach1,
 			String post_attach2) {
 		super();
-		this.adminpost_id=0;
 		this.admin_index = admin_index;
 		this.post_type = post_type;
 		this.post_subject = post_subject;
 		this.post_content = post_content;
 		this.post_attach1 = post_attach1;
 		this.post_attach2 = post_attach2;
-		this.register_date=null;
 	}
 	
 	

@@ -59,9 +59,9 @@ public class AdminController {
 		
 		Page page = new Page(cri,total);
 		
-		System.out.println(page.toString());
 		model.addAttribute("admin",adms);
 		model.addAttribute("pageMaker", page);
+		
 		session.removeAttribute("option");
 		session.removeAttribute("searchVal");
 		
@@ -74,6 +74,7 @@ public class AdminController {
 	@ResponseBody
 	@RequestMapping("/searchlist")
 	public String searchlist(String option, String searchVal,Model model, HttpSession session) {
+		
 		session.setAttribute("option",option);
 		session.setAttribute("searchVal",searchVal);
 		
@@ -105,3 +106,4 @@ public class AdminController {
 	}
 	
 }
+
